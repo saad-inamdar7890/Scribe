@@ -1,6 +1,8 @@
 package org.application.scribe.object;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class Request {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id; // Unique identifier for the request
     private LocalDateTime examDate; // Date and time of the exam
     private String examName; // Name of the exam
@@ -19,5 +22,7 @@ public class Request {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false) // Foreign key to User
-    private User user; // Reference to the User object
+    private AppUser appUser_id; // Reference to the User object
+
+
 }

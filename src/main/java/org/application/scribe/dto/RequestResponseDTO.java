@@ -1,7 +1,7 @@
 package org.application.scribe.dto;
 
+import org.application.scribe.object.AppUser;
 import org.application.scribe.object.Request;
-import org.application.scribe.object.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,5 +9,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class RequestResponseDTO {
     private Request request;
-    private User user;
+    private AppUser appUser;
 }

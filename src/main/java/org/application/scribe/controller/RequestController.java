@@ -1,8 +1,9 @@
 package org.application.scribe.controller;
 
 import org.application.scribe.dto.RequestResponseDTO;
+import org.application.scribe.dto.RequestUserDTO;
+import org.application.scribe.object.AppUser;
 import org.application.scribe.object.Request;
-import org.application.scribe.object.User;
 import org.application.scribe.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class RequestController {
         Optional<Request> requestOptional = requestService.getRequestById(id);
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            User user = request.getUser(); // Get the associated user
-            RequestResponseDTO responseDTO = new RequestResponseDTO(request, user);
+            AppUser appUser = request.getAppUser_id(); // Get the associated user
+            RequestResponseDTO responseDTO = new RequestResponseDTO(request, appUser);
             return ResponseEntity.ok(responseDTO);
         } else {
             return ResponseEntity.notFound().build();
@@ -38,8 +39,8 @@ public class RequestController {
     @PostMapping
     public ResponseEntity<Request> createRequest(@RequestBody RequestUserDTO requestUserDTO) {
         Request request = requestUserDTO.getRequest();
-        User user = requestUserDTO.getUser();
-        Request savedRequest = requestService.createRequestWithUser(request, user);
+        AppUser appUser = requestUserDTO.getAppUser();
+        Request savedRequest = requestService.createRequestWithUser(request, appUser);
         return ResponseEntity.ok(savedRequest);
     }
 

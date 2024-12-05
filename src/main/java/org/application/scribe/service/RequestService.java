@@ -1,5 +1,5 @@
 package org.application.scribe.service;
-import org.application.scribe.object.User;
+import org.application.scribe.object.AppUser;
 import org.application.scribe.object.Request;
 import org.application.scribe.repository.RequestRepository;
 import org.application.scribe.repository.UserRepository;
@@ -29,17 +29,17 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
-    public User findUserByContact(String contact) {
+    public AppUser findUserByContact(String contact) {
         return userRepository.findByContact(contact);
     }
 
-    public Request createRequestWithUser(Request request, User user) {
-        User existingUser = findUserByContact(user.getContact());
-        if (existingUser != null) {
-            request.setUser(existingUser);
+    public Request createRequestWithUser(Request request, AppUser appUser) {
+        AppUser existingAppUser = findUserByContact(appUser.getContact());
+        if (existingAppUser != null) {
+            request.setAppUser_id(existingAppUser);
         } else {
-            existingUser = userRepository.save(user);
-            request.setUser(existingUser);
+            existingAppUser = userRepository.save(appUser);
+            request.setAppUser_id(existingAppUser);
         }
         return requestRepository.save(request);
     }
@@ -50,7 +50,7 @@ public class RequestService {
         request.setExamName(requestDetails.getExamName());
         request.setExamTime(requestDetails.getExamTime());
         request.setVenue(requestDetails.getVenue());
-        request.setUser(requestDetails.getUser());
+        request.setAppUser_id(requestDetails.getAppUser_id());
         return requestRepository.save(request);
     }
 
